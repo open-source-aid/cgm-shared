@@ -1,0 +1,23 @@
+[package]
+name = "cgm-shared"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Shared CGM contract for sans-IO OS-AID drivers: readings, sensor state, commands and the CgmEngine trait"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/ETolboom/cgm-shared"
+keywords = ["cgm", "glucose", "ble", "sans-io", "no-std"]
+categories = ["no-std", "embedded"]
+
+[features]
+default = ["std"]
+std = ["pump-shared/std"]
+sim = ["pump-shared/sim"]
+
+[dependencies]
+# Open: Q5/Q11. The generic host contract (Action, BleOp, Slot, Secret, ...)
+# still lives in pump-shared; it is re-exported from here until it is split out.
+pump-shared = { git = "https://github.com/u-osaid/pump-shared", branch = "main", default-features = false }
+
+[dev-dependencies]
+proptest = "1.7"
