@@ -5,7 +5,7 @@ edition = "2021"
 rust-version = "1.85"
 description = "Shared CGM contract for sans-IO OS-AID drivers: readings, sensor state, commands and the CgmEngine trait"
 license = "AGPL-3.0-or-later"
-repository = "https://github.com/ETolboom/cgm-shared"
+repository = "https://github.com/u-osaid/cgm-shared"
 keywords = ["cgm", "glucose", "ble", "sans-io", "no-std"]
 categories = ["no-std", "embedded"]
 
