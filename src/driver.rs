@@ -8,7 +8,7 @@ use crate::{CgmCommandKind, CgmEngine};
 
 /// Version of the CGM contract in this crate. Bumped on any incompatible
 /// change, independently of `pump_shared::API_VERSION`.
-pub const CGM_API_VERSION: u16 = 1;
+pub const CGM_API_VERSION: u16 = 2;
 
 /// `DriverInfo` plus the CGM command set.
 ///

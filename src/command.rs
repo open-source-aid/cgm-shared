@@ -26,6 +26,23 @@ pub enum CgmCommand {
         /// one already exists. `None` lets the driver create one where the
         /// protocol allows it; the result reports it so the app can keep it.
         credential: Option<Secret>,
+        /// The secret the user reads off the device or its packaging, when
+        /// the protocol needs one to establish a credential: a pairing code
+        /// printed on an applicator, a transmitter id, a sensor code read by
+        /// NFC. Drivers that need none ignore it.
+        ///
+        /// This is not the credential and does not replace it. A credential
+        /// is negotiated or derived, is usually long, and is kept for the life
+        /// of the sensor; this is short, is typed or scanned by a person, is
+        /// used once to get the credential, and is then of no further use.
+        /// Carrying both in one field would make a driver guess which it was
+        /// handed, and a wrong guess would either leak a reusable key into a
+        /// one-shot exchange or treat a four-character code as a session key.
+        ///
+        /// It is a parameter rather than something the engine asks for
+        /// mid-flow, because the user knows it before the exchange starts
+        /// (07, auxiliary inputs). Open: Q1.
+        pairing_secret: Option<Secret>,
         /// A serial read from the sensor's packaging or applicator (NFC), to
         /// check the sensor in range is the one the user means.
         expected_serial: Option<String>,
@@ -150,6 +167,7 @@ mod tests {
                 CgmCommand::Pair {
                     address: Address::new([0; 6]),
                     credential: None,
+                    pairing_secret: None,
                     expected_serial: None,
                     known_activation: None,
                 },
